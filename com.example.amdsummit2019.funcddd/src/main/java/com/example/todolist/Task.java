@@ -1,5 +1,7 @@
 package com.example.todolist;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 public class Task {
   private final String id;
   private final String description;
@@ -10,6 +12,8 @@ public class Task {
   }
 
   private Task(String id, String description, String state) {
+    checkArgument(!description.contains("@"));
+
     this.id = id;
     this.description = description;
     this.state = state;
