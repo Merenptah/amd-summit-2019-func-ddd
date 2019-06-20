@@ -41,4 +41,34 @@ public class ToDoListTest {
 
     assertThat(newToDoList).isNotEqualTo(toDoList);
   }
+
+  @Test
+  public void allows_changing_the_state_of_a_task() {
+    ToDoList toDoList = new ToDoList();
+
+    Task task = new Task("task1", "description");
+    ToDoList newToDoList = toDoList.addTask(task).changeStateOfTask("task1", "new state");
+
+    assertThat(newToDoList.getTask("task1").get().getState()).isEqualTo("new state");
+  }
+
+  @Test
+  public void returns_a_new_list_when_changing_the_state_of_a_task() {
+    ToDoList toDoList = new ToDoList();
+
+    Task task = new Task("task1", "description");
+    ToDoList newToDoList = toDoList.addTask(task).changeStateOfTask("task1", "new state");
+
+    assertThat(newToDoList).isNotEqualTo(toDoList);
+  }
+
+  @Test
+  public void the_old_list_is_not_changed_when_changing_the_state_of_a_task() {
+    Task task = new Task("task1", "description");
+    ToDoList toDoList = new ToDoList().addTask(task);
+
+    toDoList.changeStateOfTask("task1", "new state");
+
+    assertThat(toDoList.getTask("task1").get().getState()).isEqualTo("open");
+  }
 }

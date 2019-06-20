@@ -30,4 +30,12 @@ public class ToDoList {
   public Optional<Task> getTask(String id) {
     return Optional.ofNullable(this.tasks.get(id));
   }
+
+  public ToDoList changeStateOfTask(String id, String state) {
+    Map<String,Task> newTasks = new HashMap<>(tasks);
+    Task task = tasks.get(id);
+    newTasks.put(id, task.changeStateTo(state));
+
+    return new ToDoList(newTasks);
+  }
 }
