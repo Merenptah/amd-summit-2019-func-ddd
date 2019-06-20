@@ -71,4 +71,24 @@ public class ToDoListTest {
 
     assertThat(toDoList.getTask("task1").get().getState()).isEqualTo("open");
   }
+
+  @Test
+  public void allows_undoing_the_last_adding_of_a_task() {
+    ToDoList toDoList = new ToDoList();
+
+    Task task = new Task("task1", "description");
+    ToDoList newToDoList = toDoList.addTask(task);
+
+    assertThat(newToDoList.undo()).isEqualTo(toDoList);
+  }
+
+  @Test
+  public void allows_undoing_the_last_changing_of_a_task() {
+    Task task = new Task("task1", "description");
+    ToDoList toDoList = new ToDoList().addTask(task);
+
+    ToDoList newToDoList = toDoList.changeStateOfTask("task1", "new state");
+
+    assertThat(newToDoList.undo()).isEqualTo(toDoList);
+  }
 }

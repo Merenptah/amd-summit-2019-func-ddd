@@ -9,11 +9,14 @@ import java.util.Optional;
 public class ToDoList {
   private Map<String,Task> tasks = new HashMap<>();
 
+  private ToDoList lastToDoList = this;
+
   public ToDoList() {
   }
 
-  public ToDoList(Map<String,Task> tasks) {
+  public ToDoList(Map<String, Task> tasks, ToDoList lastToDoList) {
     this.tasks = tasks;
+    this.lastToDoList = lastToDoList;
   }
 
   public List<Task> getTasks() {
@@ -24,7 +27,7 @@ public class ToDoList {
     Map<String,Task> newTasks = new HashMap<>(tasks);
     newTasks.put(task.getId(), task);
 
-    return new ToDoList(newTasks);
+    return new ToDoList(newTasks, this);
   }
 
   public Optional<Task> getTask(String id) {
@@ -36,6 +39,10 @@ public class ToDoList {
     Task task = tasks.get(id);
     newTasks.put(id, task.changeStateTo(state));
 
-    return new ToDoList(newTasks);
+    return new ToDoList(newTasks, this);
+  }
+
+  public ToDoList undo() {
+    return lastToDoList;
   }
 }
