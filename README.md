@@ -1,4 +1,4 @@
-# AMD Summit 2019 - Functional DDD with Jan Stephien
+# AMD Summit 2019 - Functional DDD with Jan Stępień
 
 ## Creating a "functional" To Do List
 
